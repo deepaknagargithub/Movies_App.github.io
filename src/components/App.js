@@ -5,6 +5,7 @@ import Moviecard from "./Moviecard";
 import { render } from "@testing-library/react";
 import React from "react";
 import { type } from "@testing-library/user-event/dist/type";
+import { addMovies } from "../actions";
 
 class App extends React.Component {
 
@@ -18,10 +19,7 @@ class App extends React.Component {
       this.forceUpdate();
     })
 
-    store.dispatch({
-      type: "Add_Movies",
-      movies: data
-    })
+    store.dispatch(addMovies(data))
 
     console.log(store.getState())
 
@@ -32,7 +30,7 @@ class App extends React.Component {
 
     console.log("render")
 
-    const movies = this.props.store.getState()
+    const { list } = this.props.store.getState()  //{list:[] , favourite:[]}
 
     return (
 
@@ -46,7 +44,7 @@ class App extends React.Component {
         </div>
 
         <div className="list">
-          {movies.map((movie, index) => (
+          {list.map((movie, index) => (
             <Moviecard movie={movie} key={`movie-${index}`} />
           ))}
 
