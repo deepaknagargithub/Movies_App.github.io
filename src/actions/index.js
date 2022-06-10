@@ -1,19 +1,13 @@
-// import { type } from "@testing-library/user-event/dist/type";
-
-import { type } from "@testing-library/user-event/dist/type"
-import { createRoot } from "react-dom/client"
-
-// {
-//     type: 'Add_Movies'
-// }
-
-// {
-//     type: 'decrease_count'
-// }
-
 
 // action type
 export const Add_Movies = "Add_Movies"
+
+export const Add_Favourite = "Add_Favourite"
+
+export const Remove_From_Favourite = "Remove_From_Favourite"
+
+export const Set_Show_Favourites = "Set_Show_Favourites"
+
 
 
 
@@ -21,12 +15,50 @@ export const Add_Movies = "Add_Movies"
 
 export function addMovies(data) {
 
-    return{
-        type:Add_Movies,
-        movies: data
+    return {
+        type: Add_Movies,
+        movies: data,
+
     }
 
-    
+
+}
+
+export function addFavourite(movie) {
+
+    return {
+        type: Add_Favourite,
+        movie: movie
+
+    }
+
+
+}
+
+
+export function removeFavourite(movie) {
+
+    return {
+        type: Remove_From_Favourite,
+        movie: movie
+
+    }
+
+
+}
+
+
+
+
+export function setShowFavourite(val) {
+
+    return {
+        type: Set_Show_Favourites,
+        val: val
+
+    }
+
+
 }
 
 

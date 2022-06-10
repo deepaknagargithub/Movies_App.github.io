@@ -5,7 +5,8 @@ import Moviecard from "./Moviecard";
 import { render } from "@testing-library/react";
 import React from "react";
 import { type } from "@testing-library/user-event/dist/type";
-import { addMovies } from "../actions";
+import { addMovies, setShowFavourite } from "../actions";
+
 
 class App extends React.Component {
 
@@ -25,12 +26,40 @@ class App extends React.Component {
 
   }
 
+  isMovieFavourite = (movie) => {
+
+    const { favourites } = this.props.store.getState()
+
+    const index = favourites.indexOf(movie)
+
+    if (index !== -1) {
+
+      // found movie
+
+      return true
+    }
+    return false
+
+  }
+
+  onChangeTab = (val) => {
+
+    console.log(val)
+
+    this.props.store.dispatch(setShowFavourite(val))
+
+  }
+
+
 
   render() {
 
     console.log("render")
+    console.log(this.props.store.getState())
 
-    const { list } = this.props.store.getState()  //{list:[] , favourite:[]}
+    const { list, favourites, showFavourite } = this.props.store.getState()  //{list:[] , favourite:[]}
+
+    const displayMovies = showFavourite ? favourites : list;
 
     return (
 
@@ -38,17 +67,28 @@ class App extends React.Component {
         <Navbar />
         <div className="main">
           <div className="tabs">
-            <div className="tab">Movies</div>
-            <div className="tab">Favourite</div>
+            <div className={`tab ${showFavourite ? '' : 'active-tabs'} `} onClick={() => this.onChangeTab(false)}>Movies</div>
+
+            <div className={`tab ${showFavourite ? 'active-tabs' : ''} `} onClick={() => this.onChangeTab(true)}>Favourite</div>
           </div>
         </div>
 
         <div className="list">
-          {list.map((movie, index) => (
-            <Moviecard movie={movie} key={`movie-${index}`} />
+          {displayMovies.map((movie, index) => (
+
+            <Moviecard
+              movie={movie}
+              key={`movie-${index}`}
+              dispatch={this.props.store.dispatch}
+
+              isFavourite={this.isMovieFavourite(movie)}
+            />
+
           ))}
 
         </div>
+
+        {displayMovies.length === 0 ? <div className="no-movies">No Movies To Display!</div> : null}
 
       </div>
     );
