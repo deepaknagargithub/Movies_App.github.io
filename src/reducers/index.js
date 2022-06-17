@@ -1,8 +1,15 @@
 
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 
+import {
+    Add_Movies,
+    Add_Favourite,
+    Remove_From_Favourite,
+    Set_Show_Favourites,
+    Add_Movie_To_List,
+    Add_Search_Result
 
-import { Add_Movies, Add_Favourite, Remove_From_Favourite, Set_Show_Favourites } from "../actions"
+} from "../actions"
 
 
 
@@ -34,19 +41,22 @@ export function movies(state = initialMoviesState, action) {
     switch (action.type) {
 
         case Add_Movies:
+
             return {
                 ...state,
                 list: action.movies
             }
+
         case Add_Favourite:
+
             return {
                 ...state,
                 favourites: [action.movie, ...state.favourites]
             }
+
         case Remove_From_Favourite:
 
             const filteredArray = state.favourites.filter(movie => movie.Title !== action.movie.Title)
-
             return {
                 ...state,
                 favourites: filteredArray
@@ -57,9 +67,15 @@ export function movies(state = initialMoviesState, action) {
             return {
                 ...state,
                 showFavourite: action.val
-
             }
 
+        case Add_Movie_To_List:
+
+            return {
+
+                ...state,
+                list: [action.movie,...state.list]
+            }
 
         default:
             return state
@@ -69,20 +85,43 @@ export function movies(state = initialMoviesState, action) {
 
 
 var initialSearchState = {
-    result: {}
+    result: {},
+    showSearchResults:false
 
 };
 
 export function search(state = initialSearchState, action) {
 
-    return state
+    switch (action.type) {
+
+        case  Add_Search_Result:
+
+            return {
+                ...state,
+                result: action.movie,
+                showSearchResults:true
+            }
+        case Add_Movie_To_List:
+
+            return {
+                ...state,
+                showSearchResults:false
+            }
+
+        default:
+            return state;
+    }
 
 }
 
-var initialRootState = {
-    movies: initialMoviesState,
-    search: initialSearchState
-}
+
+
+// var initialRootState = {
+
+//     movies: initialMoviesState,
+//     search: initialSearchState
+
+// }
 
 
 
@@ -97,7 +136,7 @@ var initialRootState = {
 
 
 
-export default combineReducers ({
+export default combineReducers({
 
     movies,
     search
