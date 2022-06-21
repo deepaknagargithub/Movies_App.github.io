@@ -11,9 +11,6 @@ import {
 
 } from "../actions"
 
-
-
-
 var initialMoviesState = {
     list: [],
     favourites: [],
@@ -23,9 +20,6 @@ var initialMoviesState = {
 
 export function movies(state = initialMoviesState, action) {
 
-
-
-
     // // if(action.type === Add_Movies) {
     //     return {
     //         ...state,
@@ -33,10 +27,6 @@ export function movies(state = initialMoviesState, action) {
     //     }
     // // }
     // // return state
-
-
-
-
 
     switch (action.type) {
 
@@ -80,6 +70,7 @@ export function movies(state = initialMoviesState, action) {
         default:
             return state
     }
+    
 }
 
 

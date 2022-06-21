@@ -14,9 +14,9 @@ import {connect} from "react-redux"
 
 class App extends React.Component {
 
+
+
   componentDidMount() {
-
-
     this.props.dispatch(addMovies(data))
 
     // const { store } = this.props
@@ -28,9 +28,10 @@ class App extends React.Component {
     // })
 
     // store.dispatch(addMovies(data))
-
-
   }
+
+
+
 
   isMovieFavourite = (movie) => {
 
@@ -48,6 +49,8 @@ class App extends React.Component {
     return false
 
   }
+
+
 
   onChangeTab = (val) => {
 
@@ -83,6 +86,7 @@ class App extends React.Component {
         </div>
 
         <div className="list">
+          
           {displayMovies.map((movie, index) => (
 
             <Moviecard
@@ -94,7 +98,6 @@ class App extends React.Component {
               dispatch={this.props.dispatch}
 
               isFavourite={this.isMovieFavourite(movie)}
-
             />
 
           ))}
