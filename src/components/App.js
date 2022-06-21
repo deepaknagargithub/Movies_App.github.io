@@ -11,10 +11,7 @@ import { addMovies, setShowFavourite } from "../actions";
 
 import {connect} from "react-redux"
 
-
 class App extends React.Component {
-
-
 
   componentDidMount() {
     this.props.dispatch(addMovies(data))
@@ -29,9 +26,6 @@ class App extends React.Component {
 
     // store.dispatch(addMovies(data))
   }
-
-
-
 
   isMovieFavourite = (movie) => {
 
@@ -50,14 +44,11 @@ class App extends React.Component {
 
   }
 
-
-
   onChangeTab = (val) => {
 
     this.props.dispatch(setShowFavourite(val))
 
   }
-
 
 
   render() {
@@ -125,15 +116,15 @@ class App extends React.Component {
 
 // }
 
-
 function mapStateToProps(state) {
 
   return {
     movies: state.movies,
     search: state.movies
   }
-
 };
+
+
 const connectedAppComponents = connect(mapStateToProps)(App)
 
 export default connectedAppComponents;
