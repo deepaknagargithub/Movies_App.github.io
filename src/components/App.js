@@ -122,9 +122,8 @@ function mapStateToProps(state) {
     movies: state.movies,
     search: state.movies
   }
+
 };
 
-
 const connectedAppComponents = connect(mapStateToProps)(App)
-
 export default connectedAppComponents;
